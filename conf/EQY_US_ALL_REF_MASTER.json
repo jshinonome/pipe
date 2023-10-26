@@ -1,0 +1,204 @@
+{
+  "targetTable": "master",
+  "sortBy": [],
+  "attribute": {
+    "sym": "p"
+  },
+  "columnMap": [
+    {
+      "source": "Symbol",
+      "target": "sym",
+      "dataType": "S"
+    },
+    {
+      "source": "Security_Description",
+      "target": "description",
+      "dataType": "*"
+    },
+    {
+      "source": "CUSIP",
+      "target": "cusip",
+      "dataType": "*"
+    },
+    {
+      "source": "Security_Type",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "SIP_Symbol",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "Old_Symbol",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "Test_Symbol_Flag",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Listed_Exchange",
+      "target": "ex",
+      "dataType": "C"
+    },
+    {
+      "source": "Tape",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Unit_Of_Trade",
+      "target": "lotSize",
+      "dataType": "H"
+    },
+    {
+      "source": "Round_Lot",
+      "target": "",
+      "dataType": "H"
+    },
+    {
+      "source": "NYSE_Industry_Code",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "Shares_Outstanding",
+      "target": "",
+      "dataType": "J"
+    },
+    {
+      "source": "Halt_Delay_Reason",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Specialist_Clearing_Agent",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "Specialist_Clearing_Number",
+      "target": "",
+      "dataType": "H"
+    },
+    {
+      "source": "Specialist_Post_Number",
+      "target": "",
+      "dataType": "H"
+    },
+    {
+      "source": "Specialist_Panel",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "TradedOnNYSEMKT",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnNASDAQBX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnNSX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnFINRA",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnISE",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnEdgeA",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnEdgeX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnCHX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnNYSE",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnArca",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnNasdaq",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnCBOE",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnPSX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnBATSY",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnBATS",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnIEX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Tick_Pilot_Indicator",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Effective_Date",
+      "target": "effectiveDate",
+      "dataType": "D"
+    },
+    {
+      "source": "TradedOnLTSE",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnMEMX",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "TradedOnMIAX",
+      "target": "",
+      "dataType": "C"
+    }
+  ]
+}

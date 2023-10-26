@@ -1,0 +1,84 @@
+{
+  "targetTable": "trade",
+  "sortBy": [],
+  "attribute": {
+    "sym": "p"
+  },
+  "columnMap": [
+    {
+      "source": "Time",
+      "target": "time",
+      "dataType": "N"
+    },
+    {
+      "source": "Exchange",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Symbol",
+      "target": "sym",
+      "dataType": "S"
+    },
+    {
+      "source": "Sale Condition",
+      "target": "",
+      "dataType": "S"
+    },
+    {
+      "source": "Trade Volume",
+      "target": "volume",
+      "dataType": "H"
+    },
+    {
+      "source": "Trade Price",
+      "target": "price",
+      "dataType": "E"
+    },
+    {
+      "source": "Trade Stop Stock Indicator",
+      "target": "",
+      "dataType": "B"
+    },
+    {
+      "source": "Trade Correction Indicator",
+      "target": "",
+      "dataType": "H"
+    },
+    {
+      "source": "Sequence Number",
+      "target": "",
+      "dataType": "I"
+    },
+    {
+      "source": "Trade Id",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "Source of Trade",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Trade Reporting Facility",
+      "target": "",
+      "dataType": "B"
+    },
+    {
+      "source": "Participant Timestamp",
+      "target": "",
+      "dataType": "N"
+    },
+    {
+      "source": "Trade Reporting Facility TRF Timestamp",
+      "target": "",
+      "dataType": "N"
+    },
+    {
+      "source": "Trade Through Exempt Indicator",
+      "target": "",
+      "dataType": "B"
+    }
+  ]
+}

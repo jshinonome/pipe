@@ -1,0 +1,159 @@
+{
+  "targetTable": "quote",
+  "sortBy": [],
+  "attribute": {
+    "sym": "p"
+  },
+  "columnMap": [
+    {
+      "source": "Time",
+      "target": "time",
+      "dataType": "N"
+    },
+    {
+      "source": "Exchange",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Symbol",
+      "target": "sym",
+      "dataType": "S"
+    },
+    {
+      "source": "Bid_Price",
+      "target": "",
+      "dataType": "E"
+    },
+    {
+      "source": "Bid_Size",
+      "target": "",
+      "dataType": "I"
+    },
+    {
+      "source": "Offer_Price",
+      "target": "",
+      "dataType": "E"
+    },
+    {
+      "source": "Offer_Size",
+      "target": "",
+      "dataType": "I"
+    },
+    {
+      "source": "Quote_Condition",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Sequence_Number",
+      "target": "",
+      "dataType": "I"
+    },
+    {
+      "source": "National_BBO_Ind",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "FINRA_BBO_Indicator",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "FINRA_ADF_MPID_Indicator",
+      "target": "",
+      "dataType": "H"
+    },
+    {
+      "source": "Quote_Cancel_Correction",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Source_Of_Quote",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Best Bid Quote Condition",
+      "target": "bidCond",
+      "dataType": "C"
+    },
+    {
+      "source": "Best_Bid_Exchange",
+      "target": "bidEx",
+      "dataType": "C"
+    },
+    {
+      "source": "Best_Bid_Price",
+      "target": "bid",
+      "dataType": "E"
+    },
+    {
+      "source": "Best_Bid_Size",
+      "target": "bidSize",
+      "dataType": "I"
+    },
+    {
+      "source": "Best_Bid_FINRA_Market_Maker_ID",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "Best_Offer_Quote_Condition",
+      "target": "askCond",
+      "dataType": "C"
+    },
+    {
+      "source": "Best_Offer_Exchange",
+      "target": "askEx",
+      "dataType": "C"
+    },
+    {
+      "source": "Best_Offer_Price",
+      "target": "ask",
+      "dataType": "F"
+    },
+    {
+      "source": "Best_Offer_Size",
+      "target": "askSize",
+      "dataType": "I"
+    },
+    {
+      "source": "Best_Offer_FINRA_Market_Maker_ID",
+      "target": "",
+      "dataType": "*"
+    },
+    {
+      "source": "LULD_Indicator",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "LULD_NBBO_Indicator",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "SIP_Generated_Message_Identifier",
+      "target": "",
+      "dataType": "C"
+    },
+    {
+      "source": "Participant_Timestamp",
+      "target": "",
+      "dataType": "N"
+    },
+    {
+      "source": "FINRA_ADF_Timestamp",
+      "target": "",
+      "dataType": "N"
+    },
+    {
+      "source": "Security_Status_Indicator",
+      "target": "",
+      "dataType": "C"
+    }
+  ]
+}

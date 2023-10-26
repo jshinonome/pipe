@@ -1,0 +1,12 @@
+{
+  "name": "pipe",
+  "version": "0.0.1",
+  "description": "named pipe q loader",
+  "author": "Jo Shinonome",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jshinonome/pipe"
+  },
+  "type": "q",
+  "dependencies": {}
+}

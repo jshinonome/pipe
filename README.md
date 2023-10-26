@@ -1,0 +1,47 @@
+# pipe
+
+## Loader
+
+### pipe.q
+
+```
+  -hdbPath     symbol     upsert hdb path
+  -gzPath      symbol     filepath
+  -partition   date       partition date
+  -delimiter   string     delimiter
+  -debug       boolean    debug mode
+  -overwrite   boolean    overwrite partition
+  -dropStart   int        drop records from end
+  -dropEnd     int        drop records from end
+```
+
+e.g. using ktrl to run the script
+
+```
+ktrl --start --process pipe --profile q4 --kargs " -gzPath :taq/REDUCED_EQY_US_ALL_REF_MASTER_20230703.gz -hdbPath :/tmp/hdb -partition 20230703 -delimiter '|' -overwrite 1b -dropStart 1 -dropEnd 1"
+```
+
+### taq_loader.py
+
+#### Usage
+
+```
+usage: taq_loader.py [-h] [-t THREAD] -d DIR --hdb HDB
+
+TAQ Loader CLI
+
+options:
+  -h, --help            show this help message and exit
+  -t THREAD, --thread THREAD
+                        thread number
+  -d DIR, --dir DIR     directory that stores taq gz files
+  --hdb HDB             q hdb directory
+```
+
+taq_loader will cached processed gz files to `~/.cache/pipe/loaded`, so it can be trigger daily.
+
+.e.g
+
+```
+python py/taq_loader.py --dir taq --hdb /tmp/hdb
+```
