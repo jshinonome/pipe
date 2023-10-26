@@ -4,7 +4,7 @@
 .cli.String[`delimiter; ","; "delimiter"];
 .cli.Boolean[`debug; 0b; "debug mode"];
 .cli.Boolean[`overwrite; 0b; "overwrite partition"];
-.cli.Int[`dropStart; 0; "drop records from end"];
+.cli.Int[`dropStart; 0; "drop records from start"];
 .cli.Int[`dropEnd; 0; "drop records from end"];
 
 .z.zd: 17 2 6;
