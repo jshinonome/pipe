@@ -4,6 +4,9 @@
   "attribute": {
     "sym": "p"
   },
+  "filter": [
+    "sym"
+  ],
   "columnMap": [
     {
       "source": "Symbol",
@@ -18,7 +21,7 @@
     {
       "source": "CUSIP",
       "target": "cusip",
-      "dataType": "*"
+      "dataType": "S"
     },
     {
       "source": "Security_Type",

@@ -22,6 +22,12 @@
 
 .pipe.cfgMap: (!) . flip .pipe.readCfgFile each .pipe.cfgFiles `file;
 
+.pipe.getFilter: {[columns; columnMap]
+  filterFiles: sv[`] each (.path.GetRelativePath { "../filter" }) ,/: columns;
+  { (in; x; $[11h = type y; enlist y; y]) }
+    '[columns; ((exec target!dataType from columnMap) columns)$'read0 each filterFiles]
+ };
+
 .pipe.load: {[gzPath; hdbPath; partition; delimiter; overwrite; dropStart; dropEnd]
   .log.Info ("loading file"; gzPath; "to"; hdbPath);
   startTime: .z.P;
@@ -30,6 +36,7 @@
   columnMap: cfg `columnMap;
   sortBy: cfg `sortBy;
   attribute: cfg `attribute;
+  filter: .pipe.getFilter[cfg `filter; columnMap];
   parPath: .Q.dd[.Q.par[hdbPath; partition; table]; `];
   if[overwrite;
     .pipe.removePartition parPath
@@ -42,13 +49,26 @@
   namedPipe: "/tmp/" , (string .z.i) , ".pipe";
   .pipe.make[gzPath; namedPipe];
   .Q.fpn[
-    .pipe.loadChunk[parPath; hdbPath; columns; dataTypes; first delimiter];
+    .pipe.loadChunk[
+      parPath;
+      hdbPath;
+      columns;
+      dataTypes;
+      first delimiter;
+      filter
+    ];
     hsym `$namedPipe;
     5000000
   ];
   .pipe.remove[namedPipe];
   .log.Info ("time used"; .z.P - startTime);
-  .pipe.post[parPath; sortBy; attribute; dropStart; dropEnd]
+  .pipe.post[
+    parPath;
+    sortBy;
+    attribute;
+    dropStart;
+    dropEnd
+  ]
  };
 
 .pipe.make: {[gzPath; namedPipe]
@@ -64,10 +84,13 @@
   system "rm -rf " , 1 _ string parPath
  };
 
-.pipe.loadChunk: {[parPath; hdbPath; columns; dataTypes; delimiter; chunk]
+.pipe.loadChunk: {[parPath; hdbPath; columns; dataTypes; delimiter; filter; chunk]
   table: flip columns!(dataTypes; delimiter) 0: chunk;
-  .log.Info ("upserting"; count table; "records");
-  upsert[parPath] .Q.en[hdbPath] table
+  table: ?[table; filter; 0b; ()];
+  if[count table;
+    .log.Info ("upserting"; count table; "records");
+    upsert[parPath] .Q.en[hdbPath] table
+  ]
  };
 
 .pipe.applyAttribute: {[parPath; column; attribute]
@@ -88,7 +111,7 @@
   if[dropStart | abs dropEnd;
     .log.Info ("drop"; dropStart; "records from start");
     .log.Info ("drop"; dropEnd; "records from end");
-    .pipe.drop[parPath; ; dropStart; neg abs dropEnd]'[cols parPath]
+    .pipe.drop[parPath; ; dropStart; neg abs dropEnd] '[cols parPath]
   ];
   .pipe.applyAttribute[parPath] '[key attribute; value attribute]
  };
@@ -97,29 +120,33 @@
   :delimiter vs first system "zcat " , (1 _ string gzPath) , " | head -1"
  };
 
-if[11h=not type key .cli.Args`hdbPath;
-  .log.Error("no such directory - ", string .cli.Args`hdbPath);
+if[11h = not type key .cli.Args `hdbPath;
+  .log.Error ("no such directory - " , string .cli.Args `hdbPath);
   exit 1
  ];
 
-if[-11h=not type key .cli.Args`gzPath;
-  .log.Error("no such file - ", string .cli.Args`gzPath);
+if[-11h = not type key .cli.Args `gzPath;
+  .log.Error ("no such file - " , string .cli.Args `gzPath);
   exit 1
  ];
 
-if[null .cli.Args`partition;
-  .log.Error("requires non-null partition");
+if[null .cli.Args `partition;
+  .log.Error ("requires non-null partition");
   exit 1
  ];
 
-if[not .cli.Args`debug;
+if[not .cli.Args `debug;
   .Q.trp[
     value;
-    (.pipe.load , .cli.Args `gzPath`hdbPath`partition`delimiter`overwrite`dropStart`dropEnd);
+    (.pipe.load , .cli.Args
+      `gzPath`hdbPath`partition`delimiter`overwrite`dropStart`dropEnd);
     {
-      .log.Error "failed to load with error - ", x;"\n  backtrace:";.Q.sbt y;
+      .log.Error "failed to load with error - " , x;
+      "\n  backtrace:";
+      .Q.sbt y;
       exit 1
-    }];
+    }
+  ];
   exit 0
  ];
 

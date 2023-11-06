@@ -4,6 +4,9 @@
   "attribute": {
     "sym": "p"
   },
+  "filter": [
+    "sym"
+  ],
   "columnMap": [
     {
       "source": "Time",
