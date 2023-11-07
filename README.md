@@ -47,3 +47,5 @@ taq_loader will cached processed gz files to `~/.cache/pipe/loaded`, so it can b
 ```
 python py/taq_loader.py --dir taq --hdb /tmp/hdb
 ```
+
+Log Files: `/tmp/ForkPoolWorker-*`
