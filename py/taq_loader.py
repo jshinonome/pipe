@@ -1,7 +1,7 @@
 import argparse
 import logging
 import subprocess
-from multiprocessing import Pool
+from multiprocessing import Pool, current_process
 from pathlib import Path
 
 FORMAT = "%(asctime)s %(levelname)s: %(message)s"
@@ -80,14 +80,19 @@ def main():
 
 def load(gz_file: str):
     logger.info("loading " + gz_file)
+    process = current_process()
     date = str(gz_file).split("_")[-1].split(".")[0]
     hdb = args.hdb
     cmd = "ktrl --start --process pipe --profile q4 --kargs "
     cmd += "' -gzPath :{} -hdbPath :{} -partition {} -delimiter \"|\" -overwrite 1b -dropStart 1 -dropEnd 1'".format(
         gz_file, hdb, date
     )
-    completeProcess = subprocess.run(cmd, shell=True, capture_output=True)
-
+    log_file = Path("/tmp/{}-{}.log".format(process.name, date))
+    log_file_handle = open(log_file, "a")
+    completeProcess = subprocess.run(
+        cmd, shell=True, capture_output=False, stdout=log_file_handle, stderr=log_file_handle
+    )
+    log_file_handle.close()
     if completeProcess.returncode != 0:
         logger.error("failed to process {}".format(gz_file))
         return ""
