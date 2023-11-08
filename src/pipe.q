@@ -1,3 +1,5 @@
+import {"./adhoc.q"};
+
 .cli.Symbol[`hdbPath; `; "upsert hdb path"];
 .cli.Symbol[`gzPath; `; "filepath"];
 .cli.Date[`partition; 0Nd; "partition date"];
@@ -37,6 +39,7 @@
   sortBy: cfg `sortBy;
   attribute: cfg `attribute;
   filter: .pipe.getFilter[cfg `filter; columnMap];
+  adhoc: cfg `adhoc;
   parPath: .Q.dd[.Q.par[hdbPath; partition; table]; `];
   if[overwrite;
     .pipe.removePartition parPath
@@ -55,7 +58,8 @@
       columns;
       dataTypes;
       first delimiter;
-      filter
+      filter;
+      adhoc
     ];
     hsym `$namedPipe;
     5000000
@@ -84,9 +88,12 @@
   system "rm -rf " , 1 _ string parPath
  };
 
-.pipe.loadChunk: {[parPath; hdbPath; columns; dataTypes; delimiter; filter; chunk]
+.pipe.loadChunk: {[parPath; hdbPath; columns; dataTypes; delimiter; filter; adhoc; chunk]
   table: flip columns!(dataTypes; delimiter) 0: chunk;
   table: ?[table; filter; 0b; ()];
+  if[not null adhoc;
+    table: (value adhoc) table
+  ];
   if[count table;
     .log.Info ("upserting"; count table; "records");
     upsert[parPath] .Q.en[hdbPath] table
