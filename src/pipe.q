@@ -6,8 +6,6 @@ import {"./adhoc.q"};
 .cli.String[`delimiter; ","; "delimiter"];
 .cli.Boolean[`debug; 0b; "debug mode"];
 .cli.Boolean[`overwrite; 0b; "overwrite partition"];
-.cli.Int[`dropStart; 0; "drop records from start"];
-.cli.Int[`dropEnd; 0; "drop records from end"];
 
 .z.zd: 17 2 6;
 
@@ -16,30 +14,36 @@ import {"./adhoc.q"};
 .pipe.cfgFiles: .path.Walk[.path.GetRelativePath { "../conf" }];
 
 .pipe.readCfgFile: {[cfgPath]
-  cfg: `$.j.k raze read0 cfgPath;
-  cfg[`columnMap]: update string source, "C"$string dataType from cfg[`columnMap];
-  pattern: "*" , (string first ` vs last ` vs cfgPath) , "*";
-  (pattern; cfg)
+  cfg: .j.k raze read0 cfgPath;
+  cfg[`targetTable]: `$cfg[`targetTable];
+  cfg[`sortBy]: `$cfg[`sortBy];
+  cfg[`attribute]: `$cfg[`attribute];
+  cfg[`adhoc]: `$cfg[`adhoc];
+  cfg[`dropStart]: `int$cfg[`dropStart];
+  cfg[`dropEnd]: `int$cfg[`dropEnd];
+  if[count cfg[`columnMap];
+    cfg[`columnMap]: update "C"$dataType, `$target from cfg[`columnMap]
+  ];
+  cfgName: (string first ` vs last ` vs cfgPath);
+  startDate: "D"$-8 # cfgName;
+  pattern: "*" , (-9 _ cfgName) , "*";
+  (pattern; startDate; cfg)
  };
 
-.pipe.cfgMap: (!) . flip .pipe.readCfgFile each .pipe.cfgFiles `file;
+.pipe.cfgMap: `pattern`startDate xasc
+  2!flip `pattern`startDate`cfg!flip .pipe.readCfgFile each .pipe.cfgFiles `file;
 
-.pipe.getFilter: {[columns; columnMap]
-  filterFiles: sv[`] each (.path.GetRelativePath { "../filter" }) ,/: columns;
-  { (in; x; $[11h = type y; enlist y; y]) }
-    '[columns; ((exec target!dataType from columnMap) columns)$'read0 each filterFiles]
- };
-
-.pipe.load: {[gzPath; hdbPath; partition; delimiter; overwrite; dropStart; dropEnd]
+.pipe.load: {[gzPath; hdbPath; partition; delimiter; overwrite]
   .log.Info ("loading file"; gzPath; "to"; hdbPath);
   startTime: .z.P;
-  cfg: first (value .pipe.cfgMap) where gzPath like/: key .pipe.cfgMap;
+  cfg: last exec cfg from .pipe.cfgMap where gzPath like/: pattern, partition >= startDate;
   table: cfg `targetTable;
   columnMap: cfg `columnMap;
   sortBy: cfg `sortBy;
   attribute: cfg `attribute;
-  filter: .pipe.getFilter[cfg `filter; columnMap];
   adhoc: cfg `adhoc;
+  dropStart: cfg `dropStart;
+  dropEnd: cfg `dropEnd;
   parPath: .Q.dd[.Q.par[hdbPath; partition; table]; `];
   if[overwrite;
     .pipe.removePartition parPath
@@ -51,18 +55,21 @@ import {"./adhoc.q"};
   .log.Info ("loading data to partition"; parPath);
   namedPipe: "/tmp/" , (string .z.i) , ".pipe";
   .pipe.make[gzPath; namedPipe];
-  .Q.fpn[
-    .pipe.loadChunk[
-      parPath;
-      hdbPath;
-      columns;
-      dataTypes;
-      first delimiter;
-      filter;
-      adhoc
-    ];
-    hsym `$namedPipe;
-    5000000
+  $[
+    count columnMap;
+      .Q.fpn[
+        .pipe.loadChunk[
+          parPath;
+          hdbPath;
+          columns;
+          dataTypes;
+          first delimiter;
+          adhoc
+        ];
+        hsym `$namedPipe;
+        5000000
+      ];
+      .Q.fpn[(value adhoc)[parPath; hdbPath; partition]; hsym `$namedPipe; 5000000]
   ];
   .pipe.remove[namedPipe];
   .log.Info ("time used"; .z.P - startTime);
@@ -88,9 +95,8 @@ import {"./adhoc.q"};
   system "rm -rf " , 1 _ string parPath
  };
 
-.pipe.loadChunk: {[parPath; hdbPath; columns; dataTypes; delimiter; filter; adhoc; chunk]
+.pipe.loadChunk: {[parPath; hdbPath; columns; dataTypes; delimiter; adhoc; chunk]
   table: flip columns!(dataTypes; delimiter) 0: chunk;
-  table: ?[table; filter; 0b; ()];
   if[not null adhoc;
     table: (value adhoc) table
   ];
@@ -145,8 +151,7 @@ if[null .cli.Args `partition;
 if[not .cli.Args `debug;
   .Q.trp[
     value;
-    (.pipe.load , .cli.Args
-      `gzPath`hdbPath`partition`delimiter`overwrite`dropStart`dropEnd);
+    (.pipe.load , .cli.Args `gzPath`hdbPath`partition`delimiter`overwrite);
     {
       .log.Error "failed to load with error - " , x;
       "\n  backtrace:";
@@ -157,4 +162,4 @@ if[not .cli.Args `debug;
   exit 0
  ];
 
-.pipe.load . .cli.Args `gzPath`hdbPath`partition`delimiter`overwrite`dropStart`dropEnd;
+.pipe.load . .cli.Args `gzPath`hdbPath`partition`delimiter`overwrite;

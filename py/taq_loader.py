@@ -84,7 +84,7 @@ def load(gz_file: str):
     date = str(gz_file).split("_")[-1].split(".")[0]
     hdb = args.hdb
     cmd = "ktrl --start --process pipe --profile q4 --kargs "
-    cmd += "' -gzPath :{} -hdbPath :{} -partition {} -delimiter \"|\" -overwrite 1b -dropStart 1 -dropEnd 1'".format(
+    cmd += "' -gzPath :{} -hdbPath :{} -partition {} -delimiter \"|\" -overwrite 1b'".format(
         gz_file, hdb, date
     )
     log_file = Path("/tmp/{}-{}.log".format(process.name, date))

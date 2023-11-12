@@ -1,0 +1,11 @@
+{
+  "targetTable": "master",
+  "sortBy": [],
+  "dropStart": 1,
+  "dropEnd": 0,
+  "attribute": {
+    "sym": "p"
+  },
+  "adhoc": ".pipe.adhoc.loadLegacyTaqMaster",
+  "columnMap": []
+}

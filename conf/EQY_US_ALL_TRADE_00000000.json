@@ -1,0 +1,11 @@
+{
+  "targetTable": "trade",
+  "sortBy": [],
+  "dropStart": 1,
+  "dropEnd": 1,
+  "attribute": {
+    "sym": "p"
+  },
+  "adhoc": ".pipe.adhoc.loadLegacyTaqTrade",
+  "columnMap": []
+}

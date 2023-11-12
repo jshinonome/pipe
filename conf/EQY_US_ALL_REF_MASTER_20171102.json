@@ -1,13 +1,12 @@
 {
   "targetTable": "master",
   "sortBy": [],
+  "dropStart": 1,
+  "dropEnd": 1,
   "attribute": {
     "sym": "p"
   },
-  "filter": [
-    "sym"
-  ],
-  "adhoc": ".pipe.adhoc.appendSecuid",
+  "adhoc": ".pipe.adhoc.appendSecuidAndFilter",
   "columnMap": [
     {
       "source": "Symbol",

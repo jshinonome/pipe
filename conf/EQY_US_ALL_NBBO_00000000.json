@@ -1,0 +1,11 @@
+{
+  "targetTable": "quote",
+  "sortBy": [],
+  "dropStart": 1,
+  "dropEnd": 1,
+  "attribute": {
+    "sym": "p"
+  },
+  "adhoc": ".pipe.adhoc.loadLegacyTaqQuote",
+  "columnMap": []
+}

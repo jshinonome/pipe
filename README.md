@@ -11,8 +11,6 @@
   -delimiter   string     delimiter
   -debug       boolean    debug mode
   -overwrite   boolean    overwrite partition
-  -dropStart   int        drop records from start
-  -dropEnd     int        drop records from end
 ```
 
 e.g. using ktrl to run the script
