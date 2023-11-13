@@ -36,7 +36,7 @@
   // not sure what char to join sym and s
   table: update
       ex: ?[ex = "Q"; "T"; ex],
-      sym: { $[count y; x; x , "." , y] } '[string sym; string s],
+      sym: { $[count y; x;`$x , "." , y] } '[string sym; string s],
       price: price % 1e4,
       cond: { x (x in " @")?0b } each cond
     from table;
@@ -62,7 +62,7 @@
   // not sure what char to join sym and s
   table: update
       ex: ?[ex = "Q"; "T"; ex],
-      sym: { $[count y; x; x , "." , y] } '[string sym; string s],
+      sym: { $[count y; x;`$x , "." , y] } '[string sym; string s],
       bid: bid % 1e4,
       ask: ask % 1e4
     from table;

@@ -48,10 +48,12 @@ import {"./adhoc.q"};
   if[overwrite;
     .pipe.removePartition parPath
   ];
-  columns: exec target from columnMap where not null target;
-  .log.Info ("loading columns "; "," sv string columns);
-  dataTypes: (exec source!dataType from columnMap where not null target)
-    .pipe.getColumns[gzPath; first delimiter];
+  if[count columnMap;
+    columns: exec target from columnMap where not null target;
+    .log.Info ("loading columns "; "," sv string columns);
+    dataTypes: (exec source!dataType from columnMap where not null target)
+      .pipe.getColumns[gzPath; first delimiter]
+  ];
   .log.Info ("loading data to partition"; parPath);
   namedPipe: "/tmp/" , (string .z.i) , ".pipe";
   .pipe.make[gzPath; namedPipe];
