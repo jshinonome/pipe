@@ -26,8 +26,8 @@
 .pipe.adhoc.loadLegacyTaqTrade: {[parPath; hdbPath; partition; chunk]
   columns: `time`ex`sym`s`cond`size`price`stop`corr;
   cfgMap: `s# (!) . flip (
-    (2006.09.30; ("TCSS*IFBI "; 9 1 6 10  4 9 11 1 2 20)  );
-    (2015.07.26; ("T CSS*IFBI ";9 3 1 6 10  4 9 11 1 2 51))
+    (2006.09.30; ("TCSS*IFBI "; 9   1 6 10 4 9 11 1 2 20));
+    (2015.07.26; ("T CSS*IFBI ";9 3 1 6 10 4 9 11 1 2 51))
   );
   cfg: cfgMap @ partition;
   dataTypes: cfg[0];
@@ -47,12 +47,12 @@
  };
 
 .pipe.adhoc.loadLegacyTaqQuote: {[parPath; hdbPath; partition; chunk]
-  columns: `time`ex`sym`s`cond`size`price`stop`corr;
+  columns: `time`ex`sym`s`bid`bsize`ask`asize`mode;
   cfgMap: `s# (!) . flip (
-    (0Nd       ; ("TCSSFIFIC "; 9 1 6 10 11 7 11 7 1 28)  );
-    (2012.08.01; ("TCSSFIFIC "; 9 1 6 10 11 7 11 7 1 29)  );
-    (2013.02.02; ("TCSSFIFIC "; 9 1 6 10 11 7 11 7 1 33)  );
-    (2013.12.02; ("TCSSFIFIC "; 9 1 6 10 11 7 11 7 1 35)  );
+    (0Nd       ; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 28));
+    (2012.08.01; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 29));
+    (2013.02.02; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 33));
+    (2013.12.02; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 35));
     (2015.07.26; ("T CSSFIFIC ";9 3 1 6 10 11 7 11 7 1 77))
   );
   cfg: cfgMap @ partition;
