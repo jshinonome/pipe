@@ -36,7 +36,7 @@
   // not sure what char to join sym and s
   table: update
       ex: ?[ex = "Q"; "T"; ex],
-      sym: { $[count y; x;`$x , "." , y] } '[string sym; string s],
+      sym: { $[count y; x; `$x , "." , y] } '[string sym; string s],
       price: price % 1e4,
       cond: { x (x in " @")?0b } each cond
     from table;
@@ -47,13 +47,11 @@
  };
 
 .pipe.adhoc.loadLegacyTaqQuote: {[parPath; hdbPath; partition; chunk]
-  columns: `time`ex`sym`s`bid`bsize`ask`asize`mode;
+  columns: `time`sym`bid`bsize`ask`asize`cond;
   cfgMap: `s# (!) . flip (
-    (0Nd       ; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 28));
-    (2012.08.01; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 29));
-    (2013.02.02; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 33));
-    (2013.12.02; ("TCSSFIFIC "; 9   1 6 10 11 7 11 7 1 35));
-    (2015.07.26; ("T CSSFIFIC ";9 3 1 6 10 11 7 11 7 1 77))
+    (2006.10.02; ("T S C FI FI "; 9 1 16 63 1 1 11 7 8 11 7 7) ); // 142
+    (2013.04.08; ("T S C FI FI "; 9 1 16 63 1 1 11 7 8 11 7 9) ); // 144
+    (2015.07.27; ("T S C FI FI ";12 1 16 63 1 1 11 7 8 11 7 42)) // 180 with header row
   );
   cfg: cfgMap @ partition;
   dataTypes: cfg[0];
@@ -62,7 +60,7 @@
   // not sure what char to join sym and s
   table: update
       ex: ?[ex = "Q"; "T"; ex],
-      sym: { $[count y; x;`$x , "." , y] } '[string sym; string s],
+      sym: { $[count y; x; `$x , "." , y] } '[string sym; string s],
       bid: bid % 1e4,
       ask: ask % 1e4
     from table;

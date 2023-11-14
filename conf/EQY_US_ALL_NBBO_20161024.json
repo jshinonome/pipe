@@ -79,8 +79,8 @@
       "dataType": "C"
     },
     {
-      "source": "Best Bid Quote Condition",
-      "target": "bidCond",
+      "source": "NBBO_Quote_Condition",
+      "target": "cond",
       "dataType": "C"
     },
     {
@@ -102,11 +102,6 @@
       "source": "Best_Bid_FINRA_Market_Maker_ID",
       "target": "",
       "dataType": "*"
-    },
-    {
-      "source": "Best_Offer_Quote_Condition",
-      "target": "askCond",
-      "dataType": "C"
     },
     {
       "source": "Best_Offer_Exchange",
