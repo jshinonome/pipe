@@ -59,8 +59,6 @@
   table: flip columns!(dataTypes; fixLengths) 0: chunk;
   // not sure what char to join sym and s
   table: update
-      ex: ?[ex = "Q"; "T"; ex],
-      sym: { $[count y; x; `$x , "." , y] } '[string sym; string s],
       bid: bid % 1e4,
       ask: ask % 1e4
     from table;
