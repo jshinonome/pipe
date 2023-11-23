@@ -16,7 +16,7 @@
 e.g. using ktrl to run the script
 
 ```
-ktrl --start --process pipe --profile q4 --kargs " -gzPath :taq/REDUCED_EQY_US_ALL_REF_MASTER_20230703.gz -hdbPath :/tmp/hdb -partition 20230703 -delimiter '|' -overwrite 1b -dropStart 1 -dropEnd 1"
+ktrl --start --process pipe --profile q4 --kargs " -gzPath :taq/REDUCED_EQY_US_ALL_REF_MASTER_20230703.gz -hdbPath :/tmp/hdb -partition 20230703 -delimiter '|' -overwrite 1b"
 ```
 
 update configurations in `conf` directory, empty target will be skipped. This shall support different versions of files, as it checks the header of gz files and use the header to extract columns.
